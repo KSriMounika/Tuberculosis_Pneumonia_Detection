@@ -4,7 +4,7 @@ An AI-powered healthcare application for detecting **Tuberculosis (TB)** and **P
 
 ---
 
-## 📌 Overview
+##  Overview
 
 Tuberculosis and Pneumonia are serious respiratory diseases that require early diagnosis for effective treatment. Manual diagnosis through chest X-rays can be time-consuming and depends on experienced radiologists.
 
@@ -22,7 +22,7 @@ The system classifies patients into one of the following categories:
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 - Detect Tuberculosis from Chest X-rays.
 - Detect Pneumonia from Chest X-rays.
@@ -50,7 +50,7 @@ The system classifies patients into one of the following categories:
 
 ---
 
-## 📂 Dataset
+##  Dataset
 
 The project uses two datasets:
 
@@ -78,7 +78,7 @@ Contains patient information such as:
 
 ---
 
-## 🏗 Project Architecture
+##  Project Architecture
 
 ```
                      Patient
@@ -210,7 +210,7 @@ Confidence             : 95%
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 TB-Pneumonia-Diagnostic-System/
@@ -239,7 +239,7 @@ TB-Pneumonia-Diagnostic-System/
 
 ---
 
-## 🚀 Installation
+## Installation
 
 Clone the repository:
 
@@ -267,7 +267,7 @@ streamlit run app.py
 
 ---
 
-## 📦 Requirements
+##  Requirements
 
 ```
 tensorflow
@@ -284,7 +284,7 @@ joblib
 
 ---
 
-## ✨ Features
+##  Features
 
 - Detects Tuberculosis
 - Detects Pneumonia
@@ -299,7 +299,7 @@ joblib
 
 ---
 
-## 📈 Future Enhancements
+## Future Enhancements
 
 - Add COVID-19 detection.
 - Support Lung Cancer detection.
@@ -311,6 +311,3 @@ joblib
 
 ---
 
-## 📄 License
-
-This project is developed for educational and research purposes. You are free to use and modify it for academic work with proper attribution.
