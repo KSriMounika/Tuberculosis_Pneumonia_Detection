@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TB & Pneumonia Diagnostic System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-gradient-hover: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0.03;
+            z-index: -1;
+        }
+
+        /* Animated Background Elements */
+        .bg-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-element {
+            position: absolute;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .bg-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .bg-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg) translate(0, 0); }
+            100% { transform: rotate(360deg) translate(20px, 20px); }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 1rem 0;
+            transition: var(--transition-smooth);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #667eea !important;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            transition: var(--transition-smooth);
+            position: relative;
+            padding-left: 45px;
+        }
+
+        .navbar-brand i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #764ba2;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar-brand:hover {
+            color: #764ba2 !important;
+        }
+
+        .navbar-brand:hover i {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-link {
+            color: #4a5568 !important;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem !important;
+            margin: 0 0.2rem;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: var(--transition-smooth);
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+            opacity: 1;
+        }
+
+        .nav-link.active {
+            background: var(--primary-gradient);
+            color: white !important;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+            70% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        /* Cards */
+        .card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            border-radius: 20px 20px 0 0 !important;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1.5rem !important;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-gradient-hover);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            animation: slideDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+            padding: 1.5rem 0;
+        }
+
+        .footer:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* Form Elements */
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            padding: 0.8rem 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Table Styling */
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .table th {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-color: #e2e8f0;
+        }
+
+        .table tbody tr {
+            transition: var(--transition-smooth);
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.05);
+            transform: scale(1.002);
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Page Transitions */
+        main {
+            animation: fadeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-gradient-hover);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+                padding-left: 35px;
+            }
+            
+            .navbar-brand i {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                border-radius: 15px;
+            }
+            
+            .btn-primary {
+                padding: 0.7rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-lungs-virus"></i> TB-Pneumonia AI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'predict' %}active{% endif %}" href="{{ url_for('predict') }}">Diagnose</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'history' %}active{% endif %}" href="{{ url_for('history') }}">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link text-primary">
+                            <i class="fas fa-user-circle me-1"></i> {{ current_user.username }}
+                            {% if current_user.is_doctor %}
+                            <span class="badge bg-info ms-1">Doctor</span>
+                            {% endif %}
+                        </span>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}" href="{{ url_for('register') }}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        <div class="d-flex align-items-center">
+                            <i class="fas 
+                                {% if category == 'success' %}fa-check-circle
+                                {% elif category == 'danger' %}fa-exclamation-circle
+                                {% elif category == 'warning' %}fa-exclamation-triangle
+                                {% else %}fa-info-circle{% endif %}
+                                me-2"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-0">
+                <strong class="text-primary">Medical AI Diagnostic System</strong> | 
+                <small class="text-muted">For educational/research purposes only</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Enhanced animations and interactions
+        $(document).ready(function() {
+            // Smooth page transitions
+            $('a.nav-link').on('click', function(e) {
+                if (this.href && !this.href.includes('#')) {
+                    e.preventDefault();
+                    $('main').fadeOut(200, function() {
+                        window.location = $(e.target).closest('a').attr('href');
+                    });
+                }
+            });
+
+            // Enhanced auto-dismiss alerts with animation
+            $('.alert').each(function(index) {
+                var $alert = $(this);
+                setTimeout(function() {
+                    $alert.fadeOut(500, function() {
+                        $alert.alert('close');
+                    });
+                }, 5000 + (index * 200));
+            });
+
+            // Add hover effect to cards
+            $('.card').hover(
+                function() {
+                    $(this).css('transform', 'translateY(-10px)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                }
+            );
+
+            // Button click animation
+            $('.btn-primary').on('click', function() {
+                $(this).css('transform', 'scale(0.95)');
+                setTimeout(() => {
+                    $(this).css('transform', 'scale(1)');
+                }, 200);
+            });
+
+            // Navbar scroll effect
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 50) {
+                    $('.navbar').css({
+                        'padding': '0.5rem 0',
+                        'box-shadow': '0 4px 30px rgba(0, 0, 0, 0.1)'
+                    });
+                } else {
+                    $('.navbar').css({
+                        'padding': '1rem 0',
+                        'box-shadow': '0 4px 20px rgba(0, 0, 0, 0.08)'
+                    });
+                }
+            });
+
+            // Table row animation
+            $('.table tbody tr').hover(
+                function() {
+                    $(this).css('transform', 'scale(1.01)');
+                },
+                function() {
+                    $(this).css('transform', 'scale(1)');
+                }
+            );
+
+            // Form input focus animation
+            $('.form-control, .form-select').focus(function() {
+                $(this).parent().addClass('focused');
+            }).blur(function() {
+                $(this).parent().removeClass('focused');
+            });
+
+            // Add loading state to submit buttons
+            $('form').on('submit', function() {
+                var $submitBtn = $(this).find('button[type="submit"]');
+                if ($submitBtn.length) {
+                    $submitBtn.prop('disabled', true);
+                    $submitBtn.html('<span class="loading-spinner"></span> Processing...');
+                }
+            });
+        });
+
+        // Add active class to current page nav item
+        $(function() {
+            var current = location.pathname;
+            $('.nav-link').each(function() {
+                var $this = $(this);
+                if ($this.attr('href') === current) {
+                    $this.addClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

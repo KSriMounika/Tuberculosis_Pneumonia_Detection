@@ -1,0 +1,966 @@
+{% extends "base.html" %}
+
+{% block title %}About - TB & Pneumonia Diagnostic System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xxl-10 col-xl-12">
+        <!-- Hero Header -->
+        <div class="card hero-card mb-5">
+            <div class="card-body text-center p-5">
+                <div class="hero-icon mb-4">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h1 class="display-5 fw-bold mb-3 text-gradient">About Our Diagnostic System</h1>
+                <p class="lead mb-4 text-muted">Revolutionizing respiratory disease detection through advanced multimodal AI technology</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                    <span class="badge bg-primary-soft px-4 py-2">
+                        <i class="fas fa-robot me-2"></i>AI-Powered
+                    </span>
+                    <span class="badge bg-success-soft px-4 py-2">
+                        <i class="fas fa-heartbeat me-2"></i>Medical Grade
+                    </span>
+                    <span class="badge bg-warning-soft px-4 py-2">
+                        <i class="fas fa-shield-alt me-2"></i>Secure & Private
+                    </span>
+                    <span class="badge bg-info-soft px-4 py-2">
+                        <i class="fas fa-bolt me-2"></i>Real-Time Analysis
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="card mb-5">
+            <div class="card-header mission-header">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="mb-0">Our Mission & Vision</h4>
+                        <p class="text-muted mb-0">Transforming respiratory disease diagnosis</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <div class="mission-content">
+                            <h3 class="fw-bold mb-4">Advancing Global Healthcare Through AI</h3>
+                            <p class="lead mb-4">We're on a mission to democratize access to accurate respiratory disease screening through cutting-edge artificial intelligence.</p>
+                            
+                            <div class="mission-points">
+                                <div class="mission-point">
+                                    <div class="point-icon">
+                                        <i class="fas fa-crosshairs"></i>
+                                    </div>
+                                    <div class="point-content">
+                                        <h5 class="fw-semibold">Early Detection</h5>
+                                        <p class="text-muted mb-0">Enable early identification of TB and Pneumonia through intelligent screening</p>
+                                    </div>
+                                </div>
+                                <div class="mission-point">
+                                    <div class="point-icon">
+                                        <i class="fas fa-handshake"></i>
+                                    </div>
+                                    <div class="point-content">
+                                        <h5 class="fw-semibold">Clinician Support</h5>
+                                        <p class="text-muted mb-0">Assist healthcare professionals with reliable preliminary assessments</p>
+                                    </div>
+                                </div>
+                                <div class="mission-point">
+                                    <div class="point-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="point-content">
+                                        <h5 class="fw-semibold">Global Accessibility</h5>
+                                        <p class="text-muted mb-0">Make advanced diagnostics available in resource-limited settings</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mission-visual">
+                            <div class="visual-card">
+                                <div class="visual-icon">
+                                    <i class="fas fa-stethoscope"></i>
+                                </div>
+                                <div class="visual-content text-center">
+                                    <h4 class="fw-bold mb-3">Bridging Technology & Medicine</h4>
+                                    <p class="mb-0">Our system combines medical expertise with state-of-the-art AI to create a powerful diagnostic assistant that works alongside healthcare professionals.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Architecture -->
+        <div class="card mb-5">
+            <div class="card-header tech-header">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="mb-0">Technology Architecture</h4>
+                        <p class="text-muted mb-0">Powered by cutting-edge AI and ML technologies</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="tech-architecture">
+                    <div class="row g-4">
+                        <!-- MobileNet CNN Card -->
+                        <div class="col-lg-4">
+                            <div class="tech-card deep-learning-card">
+                                <div class="tech-card-header">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Deep Learning Engine</h5>
+                                </div>
+                                <div class="tech-card-body">
+                                    <div class="tech-badge mb-3">
+                                        <span class="badge bg-primary">MobileNet CNN</span>
+                                        <span class="badge bg-secondary">Transfer Learning</span>
+                                    </div>
+                                    <p class="text-muted">Advanced convolutional neural network optimized for chest X-ray analysis with 94% accuracy.</p>
+                                    <div class="tech-specs">
+                                        <div class="spec-item">
+                                            <i class="fas fa-layer-group"></i>
+                                            <span>48 Layers</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <i class="fas fa-database"></i>
+                                            <span>ImageNet Weights</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            <span>Fast Inference</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ML Ensemble Card -->
+                        <div class="col-lg-4">
+                            <div class="tech-card ml-card">
+                                <div class="tech-card-header">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <h5 class="fw-bold">ML Ensemble</h5>
+                                </div>
+                                <div class="tech-card-body">
+                                    <div class="tech-badge mb-3">
+                                        <span class="badge bg-success">Random Forest</span>
+                                        <span class="badge bg-info">ANN</span>
+                                        <span class="badge bg-warning">Gradient Boost</span>
+                                    </div>
+                                    <p class="text-muted">Ensemble of machine learning models for comprehensive symptom pattern recognition.</p>
+                                    <div class="tech-specs">
+                                        <div class="spec-item">
+                                            <i class="fas fa-trees"></i>
+                                            <span>100+ Estimators</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <i class="fas fa-project-diagram"></i>
+                                            <span>Neural Networks</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <i class="fas fa-chart-line"></i>
+                                            <span>Feature Importance</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fusion Engine Card -->
+                        <div class="col-lg-4">
+                            <div class="tech-card fusion-card">
+                                <div class="tech-card-header">
+                                    <div class="tech-icon">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Fusion Engine</h5>
+                                </div>
+                                <div class="tech-card-body">
+                                    <div class="tech-badge mb-3">
+                                        <span class="badge bg-danger">Late Fusion</span>
+                                        <span class="badge bg-purple">Weighted Average</span>
+                                        <span class="badge bg-teal">Confidence Scoring</span>
+                                    </div>
+                                    <p class="text-muted">Intelligent multimodal fusion combining image and symptom predictions for final diagnosis.</p>
+                                    <div class="tech-specs">
+                                        <div class="spec-item">
+                                            <i class="fas fa-balance-scale"></i>
+                                            <span>Weighted Decision</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <i class="fas fa-cogs"></i>
+                                            <span>4 Fusion Methods</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <i class="fas fa-percentage"></i>
+                                            <span>Confidence Metrics</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="card mb-5">
+            <div class="card-header process-header">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="mb-0">How It Works</h4>
+                        <p class="text-muted mb-0">A seamless four-step diagnostic process</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="process-timeline">
+                    <div class="process-step">
+                        <div class="step-visual">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h5 class="fw-bold mb-2">Upload X-Ray Image</h5>
+                            <p class="text-muted mb-0">User securely uploads a chest X-ray image in JPG or PNG format through our encrypted interface.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-connector">
+                        <div class="connector-line"></div>
+                        <div class="connector-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-visual">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h5 class="fw-bold mb-2">Select Symptoms</h5>
+                            <p class="text-muted mb-0">User selects present symptoms from our comprehensive clinical checklist interface.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-connector">
+                        <div class="connector-line"></div>
+                        <div class="connector-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-visual">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h5 class="fw-bold mb-2">AI Analysis</h5>
+                            <p class="text-muted mb-0">Multiple AI models simultaneously analyze both image and symptom data for comprehensive assessment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-connector">
+                        <div class="connector-line"></div>
+                        <div class="connector-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-visual">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h5 class="fw-bold mb-2">Late Fusion & Results</h5>
+                            <p class="text-muted mb-0">Intelligent fusion combines predictions to deliver final diagnosis with confidence scores and recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="card mb-5">
+            <div class="card-header features-header">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="mb-0">Key Features & Capabilities</h4>
+                        <p class="text-muted mb-0">Comprehensive diagnostic platform</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h5 class="fw-semibold">Multimodal Analysis</h5>
+                            <p class="text-muted mb-0">Combines image processing with clinical symptom assessment for comprehensive evaluation.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h5 class="fw-semibold">High Accuracy</h5>
+                            <p class="text-muted mb-0">Achieves 99% accuracy on validation datasets through rigorous testing and optimization.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h5 class="fw-semibold">Real-time Processing</h5>
+                            <p class="text-muted mb-0">Delivers results in under 30 seconds with our optimized inference pipeline.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h5 class="fw-semibold">Secure Authentication</h5>
+                            <p class="text-muted mb-0">Enterprise-grade security with encrypted data storage and secure user authentication.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h5 class="fw-semibold">History Tracking</h5>
+                            <p class="text-muted mb-0">Maintains complete diagnosis history with detailed reports and comparison tools.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-comment-medical"></i>
+                            </div>
+                            <h5 class="fw-semibold">Clinical Recommendations</h5>
+                            <p class="text-muted mb-0">Provides actionable medical advice and next-step recommendations based on diagnosis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Disclaimer -->
+        <div class="card mb-5">
+            <div class="card-header disclaimer-header">
+                <div class="d-flex align-items-center">
+                    <div class="header-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="mb-0">Medical Disclaimer</h4>
+                        <p class="text-muted mb-0">Important usage information</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="disclaimer-content">
+                    <div class="disclaimer-alert">
+                        <div class="alert-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="alert-content">
+                            <h5 class="fw-bold mb-2">Educational & Research Tool</h5>
+                            <p class="mb-0">This system is designed for educational and research purposes only. It is not intended to replace professional medical advice, diagnosis, or treatment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="disclaimer-points mt-4">
+                        <h6 class="fw-semibold mb-3">Intended Use Cases:</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="use-case">
+                                    <i class="fas fa-graduation-cap text-primary"></i>
+                                    <span>Educational tool for medical students</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="use-case">
+                                    <i class="fas fa-flask text-success"></i>
+                                    <span>Research platform for AI diagnostics</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="use-case">
+                                    <i class="fas fa-user-md text-warning"></i>
+                                    <span>Preliminary screening assistance</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="use-case">
+                                    <i class="fas fa-ban text-danger"></i>
+                                    <span>NOT for direct patient diagnosis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="disclaimer-note mt-4">
+                        <p class="text-center text-muted mb-0">
+                            <i class="fas fa-stethoscope me-2"></i>
+                            Always consult qualified healthcare providers with any questions regarding medical conditions or treatment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="card">
+            <div class="card-body text-center p-5">
+                <div class="footer-icon mb-4">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Academic Research Project</h4>
+                <p class="lead mb-4">This system was developed as part of advanced research in multimodal AI applications for medical diagnostics.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <span class="text-muted">
+                        <i class="fas fa-calendar me-2"></i>2024 Release
+                    </span>
+                    <span class="text-muted">
+                        <i class="fas fa-code me-2"></i>Research Edition
+                    </span>
+                    <span class="text-muted">
+                        <i class="fas fa-users me-2"></i>Academic Team
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom Styles for About Page */
+    .hero-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%);
+        border: 1px solid rgba(102, 126, 234, 0.1);
+        backdrop-filter: blur(20px);
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-icon {
+        font-size: 4rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Badge Styles */
+    .badge.bg-primary-soft {
+        background-color: rgba(102, 126, 234, 0.1) !important;
+        color: #667eea !important;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .badge.bg-success-soft {
+        background-color: rgba(16, 185, 129, 0.1) !important;
+        color: #10b981 !important;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .badge.bg-warning-soft {
+        background-color: rgba(245, 158, 11, 0.1) !important;
+        color: #f59e0b !important;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .badge.bg-info-soft {
+        background-color: rgba(59, 130, 246, 0.1) !important;
+        color: #3b82f6 !important;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    /* Card Headers */
+    .card-header {
+        border-bottom: none;
+        padding: 1.5rem 2rem !important;
+    }
+
+    .mission-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .tech-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+
+    .process-header {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+    }
+
+    .features-header {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        color: white;
+    }
+
+    .disclaimer-header {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+
+    .header-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    /* Mission Section */
+    .mission-content {
+        padding-right: 2rem;
+    }
+
+    .mission-points {
+        margin-top: 2rem;
+    }
+
+    .mission-point {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    .point-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .point-content {
+        flex: 1;
+    }
+
+    .mission-visual {
+        padding: 2rem;
+    }
+
+    .visual-card {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        text-align: center;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .visual-icon {
+        font-size: 3rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Technology Cards */
+    .tech-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .tech-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    .deep-learning-card .tech-card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .ml-card .tech-card-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+
+    .fusion-card .tech-card-header {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+    }
+
+    .tech-card-header {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .tech-icon {
+        font-size: 1.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tech-card-body {
+        padding: 1.5rem;
+    }
+
+    .tech-specs {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .spec-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+
+    .spec-item i {
+        font-size: 1.25rem;
+        color: #667eea;
+    }
+
+    .badge.bg-purple {
+        background-color: #8b5cf6 !important;
+    }
+
+    .badge.bg-teal {
+        background-color: #14b8a6 !important;
+    }
+
+    /* Process Timeline */
+    .process-timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        padding: 2rem 0;
+    }
+
+    @media (max-width: 992px) {
+        .process-timeline {
+            flex-direction: column;
+            gap: 2rem;
+        }
+    }
+
+    .process-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+        max-width: 200px;
+    }
+
+    .step-visual {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .step-number {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.875rem;
+        z-index: 2;
+    }
+
+    .step-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .process-step:hover .step-icon {
+        transform: scale(1.1);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .process-connector {
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+    }
+
+    @media (max-width: 992px) {
+        .process-connector {
+            display: none;
+        }
+    }
+
+    .connector-line {
+        height: 2px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        flex: 1;
+        border-radius: 2px;
+    }
+
+    .connector-arrow {
+        position: absolute;
+        right: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(5px); }
+    }
+
+    /* Features */
+    .feature-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+        text-align: center;
+    }
+
+    .feature-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border-color: #667eea;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+    }
+
+    /* Disclaimer */
+    .disclaimer-alert {
+        display: flex;
+        align-items: flex-start;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .alert-icon {
+        font-size: 1.5rem;
+        color: #ef4444;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .use-case {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: rgba(0,0,0,0.02);
+        border-radius: 8px;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .use-case i {
+        font-size: 1.25rem;
+    }
+
+    /* Footer */
+    .footer-icon {
+        font-size: 3rem;
+        color: #667eea;
+        margin-bottom: 1.5rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-card .card-body,
+        .card-body.p-5,
+        .card-body.p-4 {
+            padding: 2rem 1rem !important;
+        }
+        
+        .mission-content {
+            padding-right: 0;
+            margin-bottom: 2rem;
+        }
+        
+        .tech-card {
+            margin-bottom: 1.5rem;
+        }
+        
+        .process-step {
+            max-width: 100%;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Animate tech cards on scroll
+        $('.tech-card').each(function(index) {
+            $(this).css('animation-delay', (index * 0.2) + 's');
+        });
+
+        // Animate process steps
+        $('.process-step').each(function(index) {
+            $(this).css('animation-delay', (index * 0.3) + 's');
+        });
+
+        // Animate feature items
+        $('.feature-item').each(function(index) {
+            $(this).css('animation-delay', (index * 0.1) + 's');
+        });
+
+        // Hover effects for tech cards
+        $('.tech-card').hover(
+            function() {
+                $(this).find('.tech-icon').css('transform', 'scale(1.1)');
+            },
+            function() {
+                $(this).find('.tech-icon').css('transform', 'scale(1)');
+            }
+        );
+
+        // Add scroll animation
+        $(window).scroll(function() {
+            $('.tech-card, .feature-item, .mission-point').each(function() {
+                var elementTop = $(this).offset().top;
+                var elementBottom = elementTop + $(this).outerHeight();
+                var viewportTop = $(window).scrollTop();
+                var viewportBottom = viewportTop + $(window).height();
+
+                if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                    $(this).addClass('animated');
+                }
+            });
+        });
+
+        // Trigger initial scroll check
+        $(window).trigger('scroll');
+
+        // Mission points animation
+        $('.mission-point').hover(
+            function() {
+                $(this).find('.point-icon').css('transform', 'rotate(15deg) scale(1.1)');
+            },
+            function() {
+                $(this).find('.point-icon').css('transform', 'rotate(0) scale(1)');
+            }
+        );
+    });
+</script>
+{% endblock %}

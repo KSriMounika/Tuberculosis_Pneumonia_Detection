@@ -1,0 +1,1115 @@
+{% extends "base.html" %}
+
+{% block title %}Results - TB & Pneumonia Diagnostic System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Results Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="results-header card">
+                <div class="card-body p-5">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                        <div class="header-content">
+                            <div class="header-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <h1 class="display-6 fw-bold mb-2 text-gradient">Diagnosis Complete</h1>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                    Analysis completed: {{ result.timestamp }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="result-meta mt-3 mt-md-0">
+                            <div class="meta-badges">
+                                <span class="meta-badge">
+                                    <i class="fas fa-sync-alt"></i>
+                                    {{ result.fusion_method|replace('_', ' ')|title }}
+                                </span>
+                                <span class="meta-badge">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="analysisTime">30s</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Diagnosis -->
+    <div class="row mb-5">
+        <div class="col-xl-8">
+            <div class="card diagnosis-card">
+                <div class="card-header">
+                    <h4 class="fw-bold mb-0">
+                        <i class="fas fa-bullseye me-2"></i>
+                        Final Diagnosis
+                    </h4>
+                </div>
+                <div class="card-body p-5 text-center">
+                    <div class="diagnosis-result">
+                        {% if result.final_prediction == 'Normal' %}
+                        <div class="result-status normal">
+                            <div class="status-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="status-content">
+                                <h1 class="display-4 fw-bold mb-3">Normal Chest</h1>
+                                <p class="lead text-muted">No abnormalities detected in the X-ray image</p>
+                            </div>
+                        </div>
+                        {% elif result.final_prediction == 'Pneumonia' %}
+                        <div class="result-status pneumonia">
+                            <div class="status-icon">
+                                <i class="fas fa-lungs"></i>
+                            </div>
+                            <div class="status-content">
+                                <h1 class="display-4 fw-bold mb-3">Pneumonia Detected</h1>
+                                <p class="lead text-muted">Pulmonary infection identified in the X-ray image</p>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="result-status tuberculosis">
+                            <div class="status-icon">
+                                <i class="fas fa-virus"></i>
+                            </div>
+                            <div class="status-content">
+                                <h1 class="display-4 fw-bold mb-3">Tuberculosis Detected</h1>
+                                <p class="lead text-muted">TB indicators identified in the X-ray image</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Confidence Meter -->
+                        <div class="confidence-meter mt-5">
+                            <div class="meter-header">
+                                <h5 class="fw-semibold mb-3">AI Confidence Level</h5>
+                                <div class="confidence-score">
+                                    <span class="score-number">{{ result.final_confidence }}</span>
+                                    <span class="score-label">Confidence</span>
+                                </div>
+                            </div>
+                            <div class="meter-bar">
+                                <div class="progress" style="height: 20px;">
+                                    <div class="progress-bar 
+                                        {% if result.final_confidence|float > 80 %}bg-success
+                                        {% elif result.final_confidence|float > 60 %}bg-warning
+                                        {% else %}bg-danger{% endif %}"
+                                         style="width: {{ result.final_confidence|float }}%"
+                                         role="progressbar">
+                                    </div>
+                                </div>
+                                <div class="meter-labels d-flex justify-content-between mt-2">
+                                    <small>Low</small>
+                                    <small>Medium</small>
+                                    <small>High</small>
+                                    <small>Very High</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-4">
+            <div class="card image-preview-card">
+                <div class="card-header">
+                    <h5 class="fw-bold mb-0">
+                        <i class="fas fa-image me-2"></i>
+                        X-Ray Preview
+                    </h5>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <div class="image-container">
+                        <img src="{{ result.image_path }}" class="img-fluid rounded shadow" 
+                             alt="Chest X-Ray" id="xrayImage">
+                        <div class="image-overlay">
+                            <button class="btn btn-sm btn-light" onclick="zoomImage()">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis mt-4">
+                        <div class="analysis-result">
+                            <h6 class="fw-semibold mb-2">Image Model Analysis</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge 
+                                    {% if result.image_prediction == 'Normal' %}bg-success
+                                    {% elif result.image_prediction == 'Pneumonia' %}bg-warning
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ result.image_prediction }}
+                                </span>
+                                <span class="confidence-badge">
+                                    {{ result.image_confidence }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Predictions Comparison -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card predictions-card">
+                <div class="card-header">
+                    <h4 class="fw-bold mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Model Predictions Comparison
+                    </h4>
+                    <p class="text-muted mb-0">Individual model outputs before fusion</p>
+                </div>
+                <div class="card-body p-4">
+                    <div class="model-comparison">
+                        <div class="row g-4">
+                            <!-- X-Ray Model -->
+                            <div class="col-lg-4">
+                                <div class="model-card">
+                                    <div class="model-header">
+                                        <div class="model-icon">
+                                            <i class="fas fa-x-ray"></i>
+                                        </div>
+                                        <div class="model-info">
+                                            <h6 class="fw-bold mb-0">MobileNet CNN</h6>
+                                            <small class="text-muted">Image Analysis</small>
+                                        </div>
+                                    </div>
+                                    <div class="model-prediction mt-3">
+                                        <div class="prediction-result">
+                                            <span class="prediction-label">Prediction:</span>
+                                            <span class="prediction-value 
+                                                {% if result.image_prediction == 'Normal' %}text-success
+                                                {% elif result.image_prediction == 'Pneumonia' %}text-warning
+                                                {% else %}text-danger{% endif %}">
+                                                {{ result.image_prediction }}
+                                            </span>
+                                        </div>
+                                        <div class="confidence-indicator">
+                                            <div class="indicator-label">Confidence</div>
+                                            <div class="indicator-value">{{ result.image_confidence }}</div>
+                                            <div class="indicator-bar">
+                                                <div class="bar-fill" 
+                                                     style="width: {{ result.image_confidence|float }}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Random Forest -->
+                            <div class="col-lg-4">
+                                <div class="model-card">
+                                    <div class="model-header">
+                                        <div class="model-icon">
+                                            <i class="fas fa-trees"></i>
+                                        </div>
+                                        <div class="model-info">
+                                            <h6 class="fw-bold mb-0">Random Forest</h6>
+                                            <small class="text-muted">Symptom Analysis</small>
+                                        </div>
+                                    </div>
+                                    <div class="model-prediction mt-3">
+                                        <div class="prediction-result">
+                                            <span class="prediction-label">Prediction:</span>
+                                            <span class="prediction-value 
+                                                {% if result.rf_prediction == 'Normal' %}text-success
+                                                {% elif result.rf_prediction == 'Pneumonia' %}text-warning
+                                                {% else %}text-danger{% endif %}">
+                                                {{ result.rf_prediction }}
+                                            </span>
+                                        </div>
+                                        <div class="confidence-indicator">
+                                            <div class="indicator-label">Confidence</div>
+                                            <div class="indicator-value">{{ result.rf_confidence }}</div>
+                                            <div class="indicator-bar">
+                                                <div class="bar-fill" 
+                                                     style="width: {{ result.rf_confidence|float }}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- ANN Model -->
+                            <div class="col-lg-4">
+                                <div class="model-card">
+                                    <div class="model-header">
+                                        <div class="model-icon">
+                                            <i class="fas fa-network-wired"></i>
+                                        </div>
+                                        <div class="model-info">
+                                            <h6 class="fw-bold mb-0">Neural Network</h6>
+                                            <small class="text-muted">Symptom Analysis</small>
+                                        </div>
+                                    </div>
+                                    <div class="model-prediction mt-3">
+                                        <div class="prediction-result">
+                                            <span class="prediction-label">Prediction:</span>
+                                            <span class="prediction-value 
+                                                {% if result.ann_prediction == 'Normal' %}text-success
+                                                {% elif result.ann_prediction == 'Pneumonia' %}text-warning
+                                                {% else %}text-danger{% endif %}">
+                                                {{ result.ann_prediction }}
+                                            </span>
+                                        </div>
+                                        <div class="confidence-indicator">
+                                            <div class="indicator-label">Confidence</div>
+                                            <div class="indicator-value">{{ result.ann_confidence }}</div>
+                                            <div class="indicator-bar">
+                                                <div class="bar-fill" 
+                                                     style="width: {{ result.ann_confidence|float }}%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Fusion Result -->
+                        <div class="fusion-result mt-5">
+                            <div class="fusion-header">
+                                <div class="fusion-icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="fusion-info">
+                                    <h5 class="fw-bold mb-1">{{ result.fusion_method|replace('_', ' ')|title }} Fusion Result</h5>
+                                    <p class="text-muted mb-0">Combined analysis from all models</p>
+                                </div>
+                            </div>
+                            <div class="fusion-details mt-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="detail-card">
+                                            <div class="detail-label">Final Diagnosis</div>
+                                            <div class="detail-value final-diagnosis">
+                                                <i class="fas 
+                                                    {% if result.final_prediction == 'Normal' %}fa-check-circle
+                                                    {% elif result.final_prediction == 'Pneumonia' %}fa-lungs
+                                                    {% else %}fa-virus{% endif %} me-2">
+                                                </i>
+                                                {{ result.final_prediction }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-card">
+                                            <div class="detail-label">Fusion Confidence</div>
+                                            <div class="detail-value">
+                                                <span class="confidence-highlight">{{ result.final_confidence }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Symptoms & Recommendations -->
+    <div class="row g-4 mb-5">
+        <!-- Symptoms Analysis -->
+        <div class="col-lg-6">
+            <div class="card symptoms-card">
+                <div class="card-header">
+                    <h5 class="fw-bold mb-0">
+                        <i class="fas fa-stethoscope me-2"></i>
+                        Symptoms Analysis
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="symptoms-summary mb-4">
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="summary-content">
+                                <h4 class="fw-bold mb-1">
+                                    {{ result.symptoms_present|length if result.symptoms_present else 0 }}
+                                </h4>
+                                <p class="text-muted mb-0">Symptoms Selected</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="symptoms-list">
+                        {% if result.symptoms_present %}
+                        <h6 class="fw-semibold mb-3">Present Symptoms:</h6>
+                        <div class="symptoms-grid">
+                            {% for symptom in result.symptoms_present %}
+                            <div class="symptom-item">
+                                <div class="symptom-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <span class="symptom-text">{{ symptom.replace('_', ' ').title() }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="empty-symptoms text-center py-4">
+                            <div class="empty-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h6 class="fw-semibold mt-3">No Symptoms Selected</h6>
+                            <p class="text-muted">Patient reported no specific symptoms</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Clinical Recommendations -->
+        <div class="col-lg-6">
+            <div class="card recommendations-card">
+                <div class="card-header">
+                    <h5 class="fw-bold mb-0">
+                        <i class="fas fa-first-aid me-2"></i>
+                        Clinical Recommendations
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Urgency Level -->
+                    <div class="urgency-level mb-4">
+                        <div class="urgency-header">
+                            <h6 class="fw-semibold mb-2">Clinical Urgency</h6>
+                        </div>
+                        <div class="urgency-indicator
+                            {% if result.clinical_info.urgency == 'High' %}urgency-high
+                            {% elif result.clinical_info.urgency == 'Medium' %}urgency-medium
+                            {% else %}urgency-low{% endif %}">
+                            <div class="urgency-content">
+                                <div class="urgency-icon">
+                                    <i class="fas 
+                                        {% if result.clinical_info.urgency == 'High' %}fa-exclamation-triangle
+                                        {% elif result.clinical_info.urgency == 'Medium' %}fa-exclamation-circle
+                                        {% else %}fa-info-circle{% endif %}">
+                                    </i>
+                                </div>
+                                <div class="urgency-info">
+                                    <h4 class="fw-bold mb-1">{{ result.clinical_info.urgency }}</h4>
+                                    <p class="text-muted mb-0">
+                                        {% if result.clinical_info.urgency == 'High' %}
+                                        Immediate medical attention recommended
+                                        {% elif result.clinical_info.urgency == 'Medium' %}
+                                        Prompt medical consultation advised
+                                        {% else %}
+                                        Routine follow-up suggested
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendations List -->
+                    <div class="recommendations-list">
+                        <h6 class="fw-semibold mb-3">Recommended Actions:</h6>
+                        <div class="recommendations-grid">
+                            {% for recommendation in result.clinical_info.recommendations %}
+                            <div class="recommendation-item">
+                                <div class="recommendation-icon">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <div class="recommendation-text">
+                                    {{ recommendation }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Medical Disclaimer -->
+                    <div class="medical-disclaimer mt-4">
+                        <div class="alert alert-warning border-0 bg-warning-soft">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading mb-2">Important Medical Disclaimer</h6>
+                                    <p class="mb-0 small">This AI-assisted diagnosis is for educational and research purposes only. Always consult qualified healthcare professionals for medical advice, diagnosis, and treatment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="action-buttons text-center">
+                <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                    <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-redo me-2"></i>
+                        New Diagnosis
+                    </a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary btn-lg px-5">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Dashboard
+                    </a>
+                    <button class="btn btn-outline-success btn-lg px-5" onclick="generateReport()">
+                        <i class="fas fa-file-pdf me-2"></i>
+                        Export Report
+                    </button>
+                    <button class="btn btn-outline-secondary btn-lg px-5" onclick="window.print()">
+                        <i class="fas fa-print me-2"></i>
+                        Print
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Zoom Modal -->
+<div class="modal fade" id="imageZoomModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-search-plus me-2"></i>
+                    X-Ray Image Analysis
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{ result.image_path }}" class="img-fluid" alt="Chest X-Ray" id="zoomImage">
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom Styles for Results Page */
+    .results-header {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%);
+        border: 1px solid rgba(102, 126, 234, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .header-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .meta-badges {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .meta-badge {
+        padding: 0.75rem 1.25rem;
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: #667eea;
+        font-weight: 600;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    /* Diagnosis Result Cards */
+    .diagnosis-card, .predictions-card, .symptoms-card, .recommendations-card {
+        border-radius: 20px;
+        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .diagnosis-card:hover, .predictions-card:hover, 
+    .symptoms-card:hover, .recommendations-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    /* Result Status */
+    .result-status {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        border-radius: 20px;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .result-status.normal {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        border: 2px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .result-status.pneumonia {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+        border: 2px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .result-status.tuberculosis {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+        border: 2px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .status-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .result-status.normal .status-icon {
+        color: #10b981;
+    }
+
+    .result-status.pneumonia .status-icon {
+        color: #f59e0b;
+    }
+
+    .result-status.tuberculosis .status-icon {
+        color: #ef4444;
+    }
+
+    /* Confidence Meter */
+    .confidence-meter {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 16px;
+        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .confidence-score {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .score-number {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+        line-height: 1;
+    }
+
+    .score-label {
+        font-size: 1rem;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .meter-bar .progress {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .meter-bar .progress-bar {
+        transition: width 2s ease-in-out;
+    }
+
+    /* Image Preview */
+    .image-preview-card .image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .image-preview-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .image-preview-card .image-container:hover img {
+        transform: scale(1.05);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .image-preview-card .image-container:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .confidence-badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+
+    /* Model Cards */
+    .model-card {
+        background: white;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 16px;
+        padding: 1.5rem;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .model-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border-color: #667eea;
+    }
+
+    .model-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .model-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+    }
+
+    .prediction-result {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .prediction-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+
+    .prediction-value {
+        font-weight: 700;
+        font-size: 1.125rem;
+    }
+
+    .confidence-indicator {
+        margin-top: 1rem;
+    }
+
+    .indicator-bar {
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+    }
+
+    .bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 4px;
+        transition: width 1s ease-in-out;
+    }
+
+    /* Fusion Result */
+    .fusion-result {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 2px dashed rgba(102, 126, 234, 0.3);
+    }
+
+    .fusion-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .fusion-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .detail-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .detail-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .detail-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .final-diagnosis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .confidence-highlight {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 2rem;
+        font-weight: 800;
+    }
+
+    /* Symptoms & Recommendations */
+    .summary-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .summary-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .symptoms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .symptom-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: rgba(0,0,0,0.02);
+        border-radius: 8px;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .symptom-icon {
+        color: #10b981;
+        font-size: 0.875rem;
+    }
+
+    .empty-symptoms {
+        border: 2px dashed #e5e7eb;
+        border-radius: 16px;
+        background: #f9fafb;
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+        color: #9ca3af;
+        opacity: 0.5;
+    }
+
+    /* Urgency Indicator */
+    .urgency-indicator {
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 2px solid;
+    }
+
+    .urgency-high {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+        border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .urgency-medium {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+        border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .urgency-low {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .urgency-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .urgency-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .urgency-high .urgency-icon {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    .urgency-medium .urgency-icon {
+        background: rgba(245, 158, 11, 0.2);
+        color: #f59e0b;
+    }
+
+    .urgency-low .urgency-icon {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+    }
+
+    /* Recommendations Grid */
+    .recommendations-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .recommendation-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .recommendation-item:hover {
+        transform: translateX(5px);
+        border-color: #667eea;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+    }
+
+    .recommendation-icon {
+        color: #667eea;
+        margin-top: 0.25rem;
+        flex-shrink: 0;
+    }
+
+    /* Alert Styles */
+    .alert.bg-warning-soft {
+        background-color: rgba(245, 158, 11, 0.1) !important;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        color: #78350f;
+    }
+
+    /* Action Buttons */
+    .action-buttons .btn {
+        min-width: 200px;
+        transition: all 0.3s ease;
+    }
+
+    .action-buttons .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .meta-badges {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .meta-badge {
+            justify-content: center;
+        }
+        
+        .result-status {
+            padding: 1rem;
+        }
+        
+        .confidence-meter {
+            padding: 1rem;
+        }
+        
+        .score-number {
+            font-size: 2.5rem;
+        }
+        
+        .action-buttons .btn {
+            width: 100%;
+            min-width: auto;
+        }
+        
+        .symptoms-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Animate confidence bars
+        $('.bar-fill, .progress-bar').each(function() {
+            var width = $(this).attr('style').match(/width: (\d+)%/)[1];
+            $(this).css('width', '0');
+            setTimeout(() => {
+                $(this).css('width', width + '%');
+            }, 500);
+        });
+
+        // Initialize analysis time
+        $('#analysisTime').text('30s');
+
+        // Image zoom functionality
+        window.zoomImage = function() {
+            $('#imageZoomModal').modal('show');
+            $('#zoomImage').attr('src', $('#xrayImage').attr('src'));
+        };
+
+        // Generate report function
+        window.generateReport = function() {
+            // In a real application, this would generate a PDF report
+            $('#loadingIndicator').show();
+            
+            setTimeout(() => {
+                $('#loadingIndicator').hide();
+                alert('Report generated successfully! In a real application, this would download a PDF.');
+            }, 2000);
+        };
+
+        // Add scroll animations
+        $(window).scroll(function() {
+            $('.model-card, .detail-card, .recommendation-item').each(function() {
+                var elementTop = $(this).offset().top;
+                var elementBottom = elementTop + $(this).outerHeight();
+                var viewportTop = $(window).scrollTop();
+                var viewportBottom = viewportTop + $(window).height();
+
+                if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                    $(this).addClass('animated');
+                }
+            });
+        });
+
+        // Trigger initial scroll check
+        $(window).trigger('scroll');
+
+        // Add hover effect to model cards
+        $('.model-card').hover(
+            function() {
+                $(this).find('.model-icon').css('transform', 'scale(1.1)');
+            },
+            function() {
+                $(this).find('.model-icon').css('transform', 'scale(1)');
+            }
+        );
+
+        // Print optimization
+        window.print = function() {
+            // Add print-specific styles
+            $('body').addClass('printing');
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => {
+                    $('body').removeClass('printing');
+                }, 1000);
+            }, 500);
+        };
+    });
+</script>
+{% endblock %}

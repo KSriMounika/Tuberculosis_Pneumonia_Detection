@@ -1,0 +1,4 @@
+disease,image_prediction,image_correct,rf_prediction,rf_correct,ann_prediction,ann_correct,symptoms_count,fusion_weighted_average_pred,fusion_weighted_average_conf,fusion_weighted_average_correct,fusion_product_pred,fusion_product_conf,fusion_product_correct,fusion_max_pred,fusion_max_conf,fusion_max_correct,fusion_majority_vote_pred,fusion_majority_vote_conf,fusion_majority_vote_correct
+Pneumonia,Pneumonia,True,Pneumonia,True,Pneumonia,True,10,Pneumonia,0.9999999012550806,True,Pneumonia,1.0,True,Pneumonia,0.9999996964650035,True,Pneumonia,1.0,True
+Normal,Normal,True,Normal,True,Normal,True,1,Normal,0.963060735599774,True,Normal,1.0,True,Normal,0.9420050264073359,True,Normal,1.0,True
+Tuberculosis,Tuberculosis,True,Tuberculosis,True,Tuberculosis,True,9,Tuberculosis,0.849122818591009,True,Tuberculosis,0.999999999999927,True,Tuberculosis,0.7738173559520993,True,Tuberculosis,1.0,True

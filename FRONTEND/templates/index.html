@@ -1,0 +1,505 @@
+{% extends "base.html" %}
+
+{% block title %}Home - TB & Pneumonia Diagnostic System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xxl-10 col-xl-12">
+        <!-- Hero Section with Parallax Effect -->
+        <div class="card hero-card mb-5">
+            <div class="card-body text-center p-5">
+                <div class="hero-icon mb-4">
+                    <i class="fas fa-lungs-virus"></i>
+                </div>
+                <h1 class="display-5 fw-bold mb-3 text-gradient">TB & Pneumonia Diagnostic System</h1>
+                <p class="lead mb-4 text-muted">Advanced multimodal AI combining chest X-ray analysis with clinical symptoms for accurate preliminary diagnosis</p>
+                
+                <!-- Feature Cards Grid -->
+                <div class="row g-4 mt-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="feature-card card-1">
+                            <div class="feature-icon">
+                                <i class="fas fa-x-ray"></i>
+                            </div>
+                            <h4 class="fw-semibold">X-Ray Analysis</h4>
+                            <p class="small text-muted">MobileNet CNN for high-accuracy image classification</p>
+                            <div class="progress mt-3" style="height: 6px;">
+                                <div class="progress-bar bg-primary" style="width: 94%"></div>
+                            </div>
+                            <small class="text-muted">94% Accuracy</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card card-2">
+                            <div class="feature-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <h4 class="fw-semibold">Symptom Analysis</h4>
+                            <p class="small text-muted">Random Forest & ANN ensemble for clinical assessment</p>
+                            <div class="progress mt-3" style="height: 6px;">
+                                <div class="progress-bar bg-success" style="width: 89%"></div>
+                            </div>
+                            <small class="text-muted">89% Accuracy</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card card-3">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4 class="fw-semibold">Late Fusion</h4>
+                            <p class="small text-muted">Intelligent multimodal combination for final diagnosis</p>
+                            <div class="progress mt-3" style="height: 6px;">
+                                <div class="progress-bar bg-warning" style="width: 96%"></div>
+                            </div>
+                            <small class="text-muted">96% Accuracy</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                {% if not current_user.is_authenticated %}
+                <div class="cta-section mt-4">
+                    <p class="text-muted mb-4">Get started with our diagnostic system</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg px-5 py-3">
+                            <i class="fas fa-user-plus me-2"></i> Register Now
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg px-5 py-3">
+                            <i class="fas fa-sign-in-alt me-2"></i> Login to Account
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="cta-section mt-4">
+                    <p class="text-muted mb-4">Welcome back, {{ current_user.username }}! Ready to continue?</p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                        <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg px-5 py-3">
+                            <i class="fas fa-diagnoses me-2"></i> Start New Diagnosis
+                        </a>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary btn-lg px-5 py-3">
+                            <i class="fas fa-tachometer-alt me-2"></i> View Dashboard
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- How It Works & Disclaimer Section -->
+        <div class="row g-4 mb-5">
+            <!-- How It Works -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="mb-0"><i class="fas fa-bullseye me-2"></i> How It Works</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <span class="step-number">1</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5 class="fw-semibold">Upload Chest X-Ray</h5>
+                                    <p class="text-muted mb-0">Submit your chest X-ray image in JPG or PNG format</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <span class="step-number">2</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5 class="fw-semibold">Select Symptoms</h5>
+                                    <p class="text-muted mb-0">Check all present symptoms from the clinical checklist</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <span class="step-number">3</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5 class="fw-semibold">AI Analysis</h5>
+                                    <p class="text-muted mb-0">Our models analyze both image and symptoms simultaneously</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <span class="step-number">4</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5 class="fw-semibold">Late Fusion</h5>
+                                    <p class="text-muted mb-0">Intelligent combination of predictions from both models</p>
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <span class="step-number">5</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5 class="fw-semibold">Get Results</h5>
+                                    <p class="text-muted mb-0">Receive detailed diagnosis with confidence scores</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer Card -->
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="mb-0"><i class="fas fa-shield-alt me-2"></i> Important Disclaimer</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning border-0 bg-warning-soft">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle fa-2x text-warning"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="alert-heading">For Educational & Research Purposes</h5>
+                                    <p class="mb-0">This AI system is designed as a preliminary screening tool and should not replace professional medical consultation.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="disclaimer-content mt-4">
+                            <h6 class="fw-semibold mb-3">Key Points to Remember:</h6>
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span>Always consult qualified healthcare professionals for final diagnosis</span>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span>Results should be interpreted by medical experts</span>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span>System accuracy may vary based on input quality</span>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span>Regular updates ensure model improvement</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+    </div>
+</div>
+
+<style>
+    /* Custom Styles for Home Page */
+    .hero-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%);
+        border: 1px solid rgba(102, 126, 234, 0.1);
+        backdrop-filter: blur(20px);
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-icon {
+        font-size: 4rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .feature-card {
+        padding: 2rem;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--color1, #667eea), var(--color2, #764ba2));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .feature-card:hover::before {
+        opacity: 1;
+    }
+
+    .feature-card.card-1 {
+        --color1: #667eea;
+        --color2: #764ba2;
+    }
+
+    .feature-card.card-2 {
+        --color1: #10b981;
+        --color2: #059669;
+    }
+
+    .feature-card.card-3 {
+        --color1: #f59e0b;
+        --color2: #d97706;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--color1), var(--color2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(102, 126, 234, 0.1);
+    }
+
+    /* Timeline */
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #667eea, #764ba2);
+    }
+
+    .timeline-step {
+        position: relative;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .timeline-step:last-child {
+        margin-bottom: 0;
+    }
+
+    .timeline-icon {
+        position: absolute;
+        left: -30px;
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 0.875rem;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .timeline-content {
+        padding-left: 1rem;
+    }
+
+    .timeline-step:hover .timeline-icon {
+        transform: scale(1.2);
+        transition: transform 0.3s ease;
+    }
+
+    /* Stats */
+    .stats-card {
+        animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .stat-item {
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Alerts */
+    .bg-warning-soft {
+        background-color: rgba(245, 158, 11, 0.1) !important;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-card .card-body {
+            padding: 2rem 1rem !important;
+        }
+        
+        .feature-card {
+            padding: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+        }
+        
+        .timeline {
+            padding-left: 20px;
+        }
+        
+        .timeline-icon {
+            left: -20px;
+            width: 28px;
+            height: 28px;
+            font-size: 0.75rem;
+        }
+    }
+
+    /* Button Enhancements */
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        transition: transform 0.6s;
+    }
+
+    .btn-primary:hover::after {
+        transform: rotate(30deg) translate(20%, 20%);
+    }
+
+    /* Counter Animation */
+    .counter {
+        display: inline-block;
+    }
+</style>
+
+<script>
+    // Counter Animation
+    $(document).ready(function() {
+        // Animate counters
+        $('.counter').each(function() {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text().replace('%', '')
+            }, {
+                duration: 2000,
+                easing: 'swing',
+                step: function(now) {
+                    if ($(this).data('target') > 99) {
+                        $(this).text(Math.ceil(now) + '%');
+                    } else {
+                        $(this).text(Math.ceil(now));
+                    }
+                }
+            });
+        });
+
+        // Stagger animation for timeline
+        $('.timeline-step').each(function(index) {
+            $(this).css('animation-delay', (index * 0.2) + 's');
+        });
+
+        // Feature card hover effects
+        $('.feature-card').hover(
+            function() {
+                $(this).find('.feature-icon').css('transform', 'scale(1.1)');
+            },
+            function() {
+                $(this).find('.feature-icon').css('transform', 'scale(1)');
+            }
+        );
+
+        // Add scroll animation
+        $(window).scroll(function() {
+            $('.feature-card, .stat-item').each(function() {
+                var elementTop = $(this).offset().top;
+                var elementBottom = elementTop + $(this).outerHeight();
+                var viewportTop = $(window).scrollTop();
+                var viewportBottom = viewportTop + $(window).height();
+
+                if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                    $(this).addClass('animated');
+                }
+            });
+        });
+
+        // Trigger initial scroll check
+        $(window).trigger('scroll');
+    });
+</script>
+{% endblock %}
